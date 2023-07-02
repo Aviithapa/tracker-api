@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('area', function (Blueprint $table) {
             $table->id();
             $table->string('latitude')->nullable();
-            $table->string('longitude');
+            $table->string('longitude')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
