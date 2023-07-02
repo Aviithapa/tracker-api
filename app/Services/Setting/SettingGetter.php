@@ -3,10 +3,7 @@
 namespace App\Services\Setting;
 
 use App\Repositories\Setting\SettingRepository;
-use App\Repositories\Student\StudentRepository;
 use Illuminate\Http\Request;
-use App\Repositories\Subject\SubjectRepository;
-use App\Repositories\User\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 

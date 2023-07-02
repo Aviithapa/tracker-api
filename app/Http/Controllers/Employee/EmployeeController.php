@@ -8,7 +8,7 @@ use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\Employee\EmployeeResource;
 use App\Http\Resources\User\UserResource;
-use App\Services\Student\EmployeeGetter;
+use App\Services\Employee\EmployeeGetter;
 use App\Services\User\UserCreator;
 use App\Services\User\UserUpdater;
 use Illuminate\Http\JsonResponse;

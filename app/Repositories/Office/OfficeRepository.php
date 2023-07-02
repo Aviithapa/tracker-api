@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\Subject;
+namespace App\Repositories\Office;
 
 use App\Repositories\Repository;
 use Illuminate\Http\Request;
 
-interface SubjectRepository  extends  Repository
+interface OfficeRepository  extends  Repository
 {
     public function getPaginatedList(Request $request);
 }

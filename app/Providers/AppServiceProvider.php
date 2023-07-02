@@ -13,20 +13,12 @@ use App\Repositories\Imei\EloquentImeiRepository;
 use App\Repositories\Imei\ImeiRepository;
 use App\Repositories\Media\EloquentMediaRepository;
 use App\Repositories\Media\MediaRepository;
-use App\Repositories\Option\EloquentOptionRepository;
-use App\Repositories\Option\OptionRepository;
-use App\Repositories\Questions\EloquentQuestionsRepository;
-use App\Repositories\Questions\QuestionsRepository;
+use App\Repositories\Office\EloquentOfficeRepository;
+use App\Repositories\Office\OfficeRepository;
 use App\Repositories\Role\EloquentRoleRepository;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Setting\EloquentSettingRepository;
 use App\Repositories\Setting\SettingRepository;
-use App\Repositories\Student\EloquentStudentRepository;
-use App\Repositories\Student\StudentRepository;
-use App\Repositories\StudentAttempt\EloquentStudentAttemptRepository;
-use App\Repositories\StudentAttempt\StudentAttemptRepository;
-use App\Repositories\Subject\EloquentSubjectRepository;
-use App\Repositories\Subject\SubjectRepository;
 use App\Repositories\User\EloquentUserRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -57,30 +49,6 @@ class AppServiceProvider extends ServiceProvider
             EloquentRoleRepository::class
         );
 
-        $this->app->bind(
-            SubjectRepository::class,
-            EloquentSubjectRepository::class
-        );
-
-        $this->app->bind(
-            StudentRepository::class,
-            EloquentStudentRepository::class
-        );
-
-        $this->app->bind(
-            QuestionsRepository::class,
-            EloquentQuestionsRepository::class
-        );
-
-        $this->app->bind(
-            OptionRepository::class,
-            EloquentOptionRepository::class
-        );
-
-        $this->app->bind(
-            StudentAttemptRepository::class,
-            EloquentStudentAttemptRepository::class
-        );
 
         $this->app->bind(
             SettingRepository::class,
@@ -109,6 +77,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             EmployeeRepository::class,
             EloquentEmployeeRepository::class
+        );
+
+        $this->app->bind(
+            OfficeRepository::class,
+            EloquentOfficeRepository::class
         );
     }
 }

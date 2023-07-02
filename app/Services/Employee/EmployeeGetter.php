@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Student;
+namespace App\Services\Employee;
 
 use App\Repositories\Employee\EmployeeRepository;
 use Illuminate\Http\Request;

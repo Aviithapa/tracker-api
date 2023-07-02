@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Repositories\Offices;
+namespace App\Repositories\Office;
 
-use App\Models\Employee;
-use App\Models\Offices;
+use App\Models\Office;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class EloquentOfficesRepository extends RepositoryImplementation implements OfficesRepository
+class EloquentOfficeRepository extends RepositoryImplementation implements OfficeRepository
 {
 
     public function getModel()
     {
-        return new Offices();
+        return new Office();
     }
 
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
