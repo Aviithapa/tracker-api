@@ -29,6 +29,7 @@ Route::post('/user/create', [UserController::class, 'create'])->name('users.crea
 Route::match(['post', 'get'], '/login', [AuthController::class, 'login'])->name('login');
 Route::post('/user/login', [AuthController::class, 'generateToken'])->name('user.login');
 Route::post('/area/import', [AreaController::class, 'importArea'])->name('area.importArea');
+Route::apiResource('/office', UserController::class);
 
 Route::apiResource('/employee', EmployeeController::class);
 
