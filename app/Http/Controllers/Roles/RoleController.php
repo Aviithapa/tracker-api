@@ -9,6 +9,7 @@ use App\Http\Resources\Roles\RoleResource;
 use App\Services\Role\RoleCreator;
 use App\Services\Role\RoleGetter;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class RoleController extends Controller
@@ -20,7 +21,7 @@ class RoleController extends Controller
         return RoleResource::collection($roleGetter->getPaginatedList());
     }
 
-    public function store(RoleCreateRequest $request, RoleCreator $roleCreator): JsonResponse
+    public function store(Request $request, RoleCreator $roleCreator): JsonResponse
     {
         $data = $request->all();
         return $this->successResponse(

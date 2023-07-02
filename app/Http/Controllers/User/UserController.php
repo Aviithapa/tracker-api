@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserResource;
+use App\Models\Role;
 use App\Repositories\User\UserRepository;
 use App\Services\Employee\EmployeeCreator;
 use App\Services\User\UserGetter;
@@ -100,6 +101,20 @@ class UserController extends Controller
             DB::rollBack();
             throw $e;
         }
+    }
+
+    public function assignRole($role, $id)
+    {
+        $role = Role::where('name', $role)->first();
+        $user = $this->userRepository->findById($id);
+        if ($user->roles->isEmpty()) {
+            // If the user has no roles, attach the desired role
+            $user->roles()->attach($role);
+        } else {
+            // If the user already has a role, update it to the desired role
+            $user->roles()->sync([$role->id]);
+        }
+        return $user;
     }
 
     public function show(UserGetter $userGetter, $id)

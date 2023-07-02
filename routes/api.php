@@ -6,6 +6,7 @@ use App\Http\Controllers\Area\AreaController;
 use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Office\OfficeController;
+use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\User\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +19,9 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
-Route::post('/user/create', [UserController::class, 'create'])->name('users.create');
+
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/user/login', [AuthController::class, 'generateToken'])->name('user.login');
-Route::post('/area/import', [AreaController::class, 'importArea'])->name('area.importArea');
-Route::apiResource('/office', OfficeController::class);
-
-Route::apiResource('/employee', EmployeeController::class);
-
 
 Route::middleware(['jwt.user.verify'])->group(
     function () {
@@ -34,18 +30,14 @@ Route::middleware(['jwt.user.verify'])->group(
     }
 );
 
-// Route::middleware(['auth:api'])->group(
-//     function () {
-//         Route::apiResource('/roles', RoleController::class);
-//         Route::apiResource('/questions', QuestionsController::class);
-//         Route::post('/importStudents', [StudentController::class, 'importStudent']);
-//         Route::apiResource('/subject', SubjectController::class);
-//         Route::apiResource('/setting', SettingController::class);
-//         Route::post('/importSubject', [SubjectController::class, 'importSubject']);
-//         Route::post('/importQuestions', [QuestionsController::class, 'importQuestions']);
-//         Route::get('/calculateStudentMarks/{studentId}', [StudentController::class, 'calculateStudentMarks']);
-//         Route::get('/exportStudentsDataToExcel', [StudentController::class, 'exportStudentsToExcel']);
-//         Route::post('/auth/logout', [AuthController::class, 'logout']);
-//         Route::post('/auth/password-change', [AuthController::class, 'changePassword']);
-//     }
-// );
+Route::middleware(['auth:api'])->group(
+    function () {
+        Route::apiResource('/employee', EmployeeController::class);
+        Route::apiResource('/roles', RoleController::class);
+        Route::apiResource('/users', UserController::class);
+        Route::apiResource('/office', OfficeController::class);
+        Route::post('/area/import', [AreaController::class, 'importArea'])->name('area.importArea');
+        Route::put('/assign/role/{role}/{user_id}', [UserController::class, 'assignRole'])->name('user.assign.role');
+        Route::post('/user/create', [UserController::class, 'create'])->name('users.create');
+    }
+);
