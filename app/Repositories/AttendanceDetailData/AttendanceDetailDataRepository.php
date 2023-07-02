@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Attendance;
+namespace App\Repositories\AttendanceDetailData;
 
 use App\Repositories\Repository;
 
-interface AttendanceRepository  extends  Repository
+interface AttendanceDetailDataRepository  extends  Repository
 {
 }

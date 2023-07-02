@@ -7,6 +7,8 @@ use App\Repositories\Area\AreaRepository;
 use App\Repositories\Area\EloquentAreaRepository;
 use App\Repositories\Attendance\AttendanceRepository;
 use App\Repositories\Attendance\EloquentAttendanceRepository;
+use App\Repositories\AttendanceDetailData\AttendanceDetailDataRepository;
+use App\Repositories\AttendanceDetailData\EloquentAttendanceDetailDataRepository;
 use App\Repositories\Employee\EloquentEmployeeRepository;
 use App\Repositories\Employee\EmployeeRepository;
 use App\Repositories\Imei\EloquentImeiRepository;
@@ -82,6 +84,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             OfficeRepository::class,
             EloquentOfficeRepository::class
+        );
+
+        $this->app->bind(
+            AttendanceDetailDataRepository::class,
+            EloquentAttendanceDetailDataRepository::class
         );
     }
 }
