@@ -3,7 +3,6 @@
 namespace App\Repositories\Area;
 
 use App\Models\Area;
-use App\Models\Media;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
