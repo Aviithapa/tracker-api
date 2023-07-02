@@ -21,7 +21,6 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // dd($credentials);
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $roles = $user->roles;
@@ -33,8 +32,7 @@ class AuthController extends Controller
 
             ]);
         }
-
-        return response()->json(['error' => 'Unauthorized username or password doesnot match'], 401);
+        return response()->json(['error' => 'Unauthorized username or password doesnot match'], 201);
     }
 
     public function generateToken(Request $request, ImeiCreator $imeiCreator)
@@ -74,7 +72,7 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => $user,
+            'user' => $user
         ]);
     }
 

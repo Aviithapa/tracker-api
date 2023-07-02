@@ -72,8 +72,8 @@ class UserController extends Controller
         if (!isset($data['password'])) {
             $data['password'] = str_pad(rand(1, 99999999), 8, '0', STR_PAD_LEFT);
         }
-        $data['password'] = bcrypt($data['password']);
         $data['remember_token'] = $data['password'];
+        $data['password'] = bcrypt($data['password']);
         $data['userId'] = generateRandomUsername(10);
 
         DB::beginTransaction();

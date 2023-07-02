@@ -19,7 +19,7 @@ use App\Http\Controllers\User\UserController;
 */
 
 Route::post('/user/create', [UserController::class, 'create'])->name('users.create');
-Route::match(['post', 'get'], '/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/user/login', [AuthController::class, 'generateToken'])->name('user.login');
 Route::post('/area/import', [AreaController::class, 'importArea'])->name('area.importArea');
 Route::apiResource('/office', OfficeController::class);
