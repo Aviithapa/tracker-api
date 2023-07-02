@@ -85,8 +85,8 @@ class CheckInCheckOutService
     {
         $today = Carbon::today()->toDateString();
         $latestAttendance = Attendance::where('employee_id', $data['employee_id'])
-            ->whereDate('check_in', $today)
-            ->orderBy('check_in', 'desc')
+            ->whereDate('created_at', $today)
+            ->orderBy('created_at', 'desc')
             ->first();
 
         if ($latestAttendance && !$latestAttendance['check_out']) {
