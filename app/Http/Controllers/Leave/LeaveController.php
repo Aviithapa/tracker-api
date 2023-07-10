@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Attendance;
+namespace App\Http\Controllers\Leave;
 
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
@@ -9,7 +9,7 @@ use App\Services\Attendance\CheckInCheckOutService;
 use Illuminate\Http\Request;
 
 
-class AttendanceController extends Controller
+class LeaveController extends Controller
 {
     //
     use ApiResponser;

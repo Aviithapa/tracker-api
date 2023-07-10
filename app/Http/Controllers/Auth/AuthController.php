@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Models\Imei;
 use App\Models\User;
@@ -12,10 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-use function PHPUnit\Framework\isEmpty;
 
 class AuthController extends Controller
 {
+    use ApiResponser;
     //
     public function login(Request $request)
     {
@@ -32,7 +33,7 @@ class AuthController extends Controller
 
             ]);
         }
-        return response()->json(['error' => 'Unauthorized username or password doesnot match'], 201);
+        return $this->errorResponse('Unauthorized username or password doesnot match', 401);
     }
 
     public function generateToken(Request $request, ImeiCreator $imeiCreator)
@@ -46,7 +47,7 @@ class AuthController extends Controller
 
         // dd($user);
         if (!$user) {
-            return response()->json(['error' => 'Unauthorized or No User found'], 401);
+            return $this->errorResponse('Unauthorized or No User found', 401);
         }
 
         $imei = Imei::where('user_id', $user->id)->first();
@@ -65,7 +66,7 @@ class AuthController extends Controller
 
 
         if ($matchImei->isEmpty()) {
-            return response()->json(['error' => 'You are not logging with your mobile. If you want to change please contact to your admin'], 401);
+            return $this->errorResponse('You are not logging with your mobile. If you want to change please contact to your admin', 401);
         }
         // If the user is found, generate the JWT token
         $token = JWTAuth::fromUser($user);
