@@ -15,7 +15,7 @@ class AttendanceController extends Controller
     use ApiResponser;
 
 
-    public function checkInCheckOut(AttendanceCreateRequest $request, CheckInCheckOutService $checkInCheckOutService)
+    public function checkInCheckOut(Request $request, CheckInCheckOutService $checkInCheckOutService)
     {
         $data = $request->all();
         return $checkInCheckOutService->evaluateCheckInCheckOut($data);
