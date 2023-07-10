@@ -114,6 +114,9 @@ class CheckInCheckOutService
             ->orderBy('created_at', 'desc')
             ->first();
 
+        if (!$latestAttendance) {
+            return response()->json(['error' => 'Not checked in at'], 400);
+        }
         if ($latestAttendance && !$latestAttendance['check_out']) {
             $checkOutData['check_out'] = Carbon::now();
             $checkOutData['out_comment'] = 'Leaved the office premise';
