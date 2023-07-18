@@ -139,7 +139,8 @@ class CheckInCheckOutService
         } else {
             $startDate = date('Y-m-d');
         }
-        $employeeId = isset($data['employee_id']) && $data['employee_id'];
+        $user = Auth::user();
+        $employeeId = isset($data['employee_id']) ? $data['employee_id'] : $user['employee_id'];
 
         $logs = DB::table('attendance')
             ->select(
@@ -151,6 +152,7 @@ class CheckInCheckOutService
             ->where('employee_id', $employeeId)
             ->whereDate('created_at', $startDate)
             ->get();
+
 
         $inAt = $logs->isNotEmpty() ? $logs[0]->attendance_check_in : null;
         $outAt = $logs->isNotEmpty() ? $logs[count($logs) - 1]->attendance_check_out : null;
