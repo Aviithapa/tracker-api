@@ -114,6 +114,8 @@ class CheckInCheckOutService
             ->orderBy('created_at', 'desc')
             ->first();
 
+        $data['attendance_id'] = 15;
+        $this->attendanceDetailDataRepository->create($data);
         if (!$latestAttendance) {
             return response()->json(['error' => 'Not checked in at'], 400);
         }
