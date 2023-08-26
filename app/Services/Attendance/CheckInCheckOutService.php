@@ -114,8 +114,8 @@ class CheckInCheckOutService
             ->orderBy('created_at', 'desc')
             ->first();
 
-        $data['attendance_id'] = 15;
-        $this->attendanceDetailDataRepository->create($data);
+        // $data['attendance_id'] = 15;
+        // $this->attendanceDetailDataRepository->create($data);
         if (!$latestAttendance) {
             return response()->json(['error' => 'Not checked in at'], 400);
         }
@@ -125,11 +125,11 @@ class CheckInCheckOutService
 
             $checkOut = $this->attendanceRepository->update($checkOutData, $latestAttendance['id']);
             $data['attendance_id'] = $latestAttendance['id'];
-            $this->attendanceDetailDataRepository->create($data);
+            // $this->attendanceDetailDataRepository->create($data);
             return $checkOut;
         }
         $data['attendance_id'] = $latestAttendance['id'];
-        $this->attendanceDetailDataRepository->create($data);
+        // $this->attendanceDetailDataRepository->create($data);
         return response()->json(['error' => 'Already in check out'], 400);
     }
 
