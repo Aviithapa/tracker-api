@@ -83,7 +83,7 @@ class CheckInCheckOutService
 
     private function checkIn($data)
     {
-        $today = Carbon::today()->toDateString();
+        $today = Carbon::today()->toDateTimeString();
         $latestAttendance = Attendance::where('employee_id', $data['employee_id'])
             ->whereDate('created_at', $today)
             ->orderBy('created_at', 'desc')
