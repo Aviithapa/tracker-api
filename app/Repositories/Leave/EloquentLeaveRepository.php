@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Leave;
 
-use App\Models\Employee;
 use App\Models\Leave;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
