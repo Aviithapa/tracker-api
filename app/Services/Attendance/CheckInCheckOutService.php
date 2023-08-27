@@ -208,9 +208,6 @@ class CheckInCheckOutService
         $employees = Employee::with(['attendances' => function ($query) use ($month, $year) {
             $query->whereMonth('check_in', $month)
                 ->whereYear('check_in', $year);
-        }])->with(['leaves' => function ($query) use ($month, $year) {
-            $query->whereMonth('start_date', $month)
-                ->whereYear('start_date', $year);
         }])->paginate($limit);
 
         $employees->appends(['month' => $month, 'year' => $year]);
@@ -242,13 +239,13 @@ class CheckInCheckOutService
                 ];
             }
 
-            foreach ($employee->leaves as $leave) {
-                $attendanceData['leaves'][] = [
-                    'start_date' => $leave->start_date,
-                    'end_date' => $leave->end_date,
-                    'reason' => $leave->reason
-                ];
-            }
+            // foreach ($employee->leaves as $leave) {
+            //     $attendanceData['leaves'][] = [
+            //         'start_date' => $leave->start_date,
+            //         'end_date' => $leave->end_date,
+            //         'reason' => $leave->reason
+            //     ];
+            // }
 
             $result['data']['employees'][] = $attendanceData;
         }
