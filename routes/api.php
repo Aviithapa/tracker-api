@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Area\AreaController;
 use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Leave\LeaveController;
 use App\Http\Controllers\Office\OfficeController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\User\UserController;
@@ -36,6 +37,8 @@ Route::middleware(['auth:api'])->group(
         Route::apiResource('/roles', RoleController::class);
         Route::apiResource('/users', UserController::class);
         Route::apiResource('/office', OfficeController::class);
+        Route::apiResource('/leave', LeaveController::class);
+        Route::get('/attendance', [AttendanceController::class, 'getEmployeeAttendance'])->name('attendace');
         Route::post('/area/import', [AreaController::class, 'importArea'])->name('area.importArea');
         Route::put('/assign/role/{role}/{user_id}', [UserController::class, 'assignRole'])->name('user.assign.role');
         Route::post('/user/create', [UserController::class, 'create'])->name('users.create');

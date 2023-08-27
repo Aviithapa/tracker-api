@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Leave\LeaveController;
 use App\Http\Controllers\Questions\QuestionsController;
 use App\Http\Controllers\StudentAttempt\StudentAttemptController as StudentAttemptStudentAttemptController;
 use App\Http\Controllers\User\UserController;

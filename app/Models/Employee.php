@@ -28,4 +28,14 @@ class Employee extends Model
     {
         return $this->belongsTo(Offices::class);
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class);
+    }
 }

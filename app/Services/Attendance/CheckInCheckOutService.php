@@ -3,6 +3,7 @@
 namespace App\Services\Attendance;
 
 use App\Models\Attendance;
+use App\Models\Employee;
 use App\Repositories\Area\AreaRepository;
 use App\Repositories\Attendance\AttendanceRepository;
 use App\Repositories\AttendanceDetailData\AttendanceDetailDataRepository;
@@ -166,5 +167,94 @@ class CheckInCheckOutService
         ];
 
         return response()->json($response);
+    }
+
+    function paginationMetaData($data, $total_items, $page, $limit)
+    {
+        return [
+            'total_items' => $total_items,
+            'items_in_page' => $data,
+            'current_page' => $page,
+            'total_pages' => ceil($total_items / $limit),
+        ];
+    }
+
+    function pagination($page, $limit)
+    {
+        return [
+            'take' => $limit,
+            'skip' => ($page - 1) * $limit,
+        ];
+    }
+
+    public function getEmployeeAttendance($data)
+    {
+        $page = $data['page'];
+        $limit = $data['limit'];
+        $offset = $data['offset'];
+        $month = $data['month'];
+        $year = $data['year'];
+        $sortBy = $data['sortBy'];
+        $order = $data['order'];
+
+        $sortingColumns = [
+            'NAME' => 'employeeAttendance.name',
+            'DATE' => 'attendance.check_in',
+            'DESIGNATION' => 'designation.name',
+        ];
+
+        $paginationParams = $this->pagination($page, $limit);
+
+        $employees = Employee::with(['attendances' => function ($query) use ($month, $year) {
+            $query->whereMonth('check_in', $month)
+                ->whereYear('check_in', $year);
+        }])->with(['leaves' => function ($query) use ($month, $year) {
+            $query->whereMonth('start_date', $month)
+                ->whereYear('start_date', $year);
+        }])->paginate($limit);
+
+        $employees->appends(['month' => $month, 'year' => $year]);
+
+        $result = [
+            'data' => [],
+            'meta' => [
+                'current_page' => $employees->currentPage(),
+                'last_page' => $employees->lastPage(),
+                'per_page' => $employees->perPage(),
+                'total' => $employees->total(),
+            ],
+        ];
+
+        foreach ($employees as $employee) {
+            $attendanceData = [
+                'id' => $employee->id,
+                'name' => $employee->name,
+                'profile_picture' => $employee->profile_picture,
+                'attendance' => [],
+                'leave' => []
+            ];
+
+            foreach ($employee->attendances as $attendance) {
+                $attendanceData['attendance'][] = [
+                    'id' => $attendance->id,
+                    'check_in' => $attendance->check_in,
+                    'check_out' => $attendance->check_out,
+                ];
+            }
+
+            foreach ($employee->leaves as $leave) {
+                $attendanceData['leaves'][] = [
+                    'start_date' => $leave->start_date,
+                    'end_date' => $leave->end_date,
+                    'reason' => $leave->reason
+                ];
+            }
+
+            $result['data']['employees'][] = $attendanceData;
+        }
+
+        $jsonResult = json_encode($result);
+
+        return $jsonResult;
     }
 }

@@ -13,6 +13,8 @@ use App\Repositories\Employee\EloquentEmployeeRepository;
 use App\Repositories\Employee\EmployeeRepository;
 use App\Repositories\Imei\EloquentImeiRepository;
 use App\Repositories\Imei\ImeiRepository;
+use App\Repositories\Leave\EloquentLeaveRepository;
+use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Media\EloquentMediaRepository;
 use App\Repositories\Media\MediaRepository;
 use App\Repositories\Office\EloquentOfficeRepository;
@@ -89,6 +91,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             AttendanceDetailDataRepository::class,
             EloquentAttendanceDetailDataRepository::class
+        );
+
+        $this->app->bind(
+            LeaveRepository::class,
+            EloquentLeaveRepository::class
         );
     }
 }
