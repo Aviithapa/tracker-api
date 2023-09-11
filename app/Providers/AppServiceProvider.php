@@ -5,12 +5,14 @@ namespace App\Providers;
 use App\Models\Role;
 use App\Repositories\Area\AreaRepository;
 use App\Repositories\Area\EloquentAreaRepository;
+use App\Repositories\Holiday\EloquentHolidayRepository;
 use App\Repositories\Attendance\AttendanceRepository;
 use App\Repositories\Attendance\EloquentAttendanceRepository;
 use App\Repositories\AttendanceDetailData\AttendanceDetailDataRepository;
 use App\Repositories\AttendanceDetailData\EloquentAttendanceDetailDataRepository;
 use App\Repositories\Employee\EloquentEmployeeRepository;
 use App\Repositories\Employee\EmployeeRepository;
+use App\Repositories\Holiday\HolidayRepository;
 use App\Repositories\Imei\EloquentImeiRepository;
 use App\Repositories\Imei\ImeiRepository;
 use App\Repositories\Leave\EloquentLeaveRepository;
@@ -96,6 +98,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             LeaveRepository::class,
             EloquentLeaveRepository::class
+        );
+
+        $this->app->bind(
+            HolidayRepository::class,
+            EloquentHolidayRepository::class
         );
     }
 }
