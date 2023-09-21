@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Leave extends Model
 {
-    protected $table = 'leave';
+    protected $table = 'Leave';
     protected $fillable = [
         'reason',
         'reject_reason',
