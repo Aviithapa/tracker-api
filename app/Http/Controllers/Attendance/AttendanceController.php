@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Attendance\AttendanceCreateRequest;
 use App\Services\Attendance\AddNewAttendanceByAdmin;
 use App\Services\Attendance\CheckInCheckOutService;
-use Carbon\Carbon;
+use App\Services\Attendance\GetAttendance;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -44,10 +42,16 @@ class AttendanceController extends Controller
     }
 
 
-
     public function deleteEmployeeAttendanceForDate(Request $request, AddNewAttendanceByAdmin $addNewAttendanceByAdmin)
     {
         $data = $request->all();
         return $addNewAttendanceByAdmin->deleteEmployeeAttendanceForDate($data);
+    }
+
+
+    public function getAttendanceLogOfUser(Request $request, GetAttendance $getAttendance)
+    {
+        $data = $request->all();
+        return $getAttendance->getActivityLog($data);
     }
 }

@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Leave\LeaveCreateRequest;
 use App\Http\Resources\Leave\LeaveResource;
 use App\Models\Employee;
+use App\Models\LeaveType;
 use App\Services\Leave\LeaveCreator;
 use App\Services\Leave\LeaveGetter;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class LeaveController extends Controller
 {
@@ -49,5 +51,29 @@ class LeaveController extends Controller
         // dd($data)
         // return $data;
         return  $leaveCreator->store($data);
+    }
+
+    public function EmployeeLeaveApply(Request $request, LeaveCreator $leaveCreator)
+    {
+        $data = $request->all();
+
+        $employee = Employee::all()->where('id', Auth::user()->employee_id)->first();
+
+        $start_date = Carbon::parse($data['start_date']);
+        $end_date = Carbon::parse($data['end_date']);
+        $data['number_of_days'] = $end_date->diffInDays($start_date) + 1;
+        $data['employee_id'] = $employee->id;
+        return  $leaveCreator->store($data);
+    }
+
+    public function getLeaveByEmployeeId(LeaveGetter $leaveGetter)
+    {
+        $id = Auth::user()->employee_id;
+        return  $leaveGetter->getLeaveByEmployeeId($id);
+    }
+
+    public function getLeaveType()
+    {
+        return  LeaveType::all();
     }
 }

@@ -29,11 +29,15 @@ Route::middleware(['jwt.user.verify'])->group(
     function () {
         Route::post('/user/attendance', [AttendanceController::class, 'checkInCheckOut'])->name('user.attendance');
         Route::get('/user/attendance/logs', [AttendanceController::class, 'getAttendanceLog'])->name('user.attendance.logs');
+        Route::get('/employee/leave', [LeaveController::class, 'getLeaveByEmployeeId'])->name('employee.leave.index');
+        Route::get('/leave/type', [LeaveController::class, 'getLeaveType'])->name('employee.leave.type');
+        Route::post('/employee/apply/leave', [LeaveController::class, 'EmployeeLeaveApply'])->name('employee.leave.apply');
     }
 );
 
 Route::middleware(['auth:api'])->group(
     function () {
+        Route::post('/employee/attendance', [AttendanceController::class, 'checkInCheckOut'])->name('employee.attendance');
         Route::apiResource('/employee', EmployeeController::class);
         Route::apiResource('/roles', RoleController::class);
         Route::apiResource('/users', UserController::class);
@@ -48,3 +52,5 @@ Route::middleware(['auth:api'])->group(
         Route::post('/user/create', [UserController::class, 'create'])->name('users.create');
     }
 );
+
+Route::post('/user/getAttendanceLogOfUser', [AttendanceController::class, 'getAttendanceLogOfUser'])->name('user.getAttendanceLogOfUser');

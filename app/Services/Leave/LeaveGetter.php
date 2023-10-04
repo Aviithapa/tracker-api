@@ -47,6 +47,16 @@ class LeaveGetter
         return $this->leaveRepository->findById($id);
     }
 
+    /**
+     * Get a single apartment
+     * @param $id
+     * @return Object|null
+     */
+    public function getLeaveByEmployeeId($id)
+    {
+        return $this->leaveRepository->getAll()->where('employee_id', $id);
+    }
+
 
     public function checkOverlappingLeaves($employeeId, $endDate, $startDate)
     {
