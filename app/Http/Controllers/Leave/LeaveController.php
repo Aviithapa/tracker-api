@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiResponser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Leave\LeaveCreateRequest;
 use App\Http\Resources\Leave\LeaveResource;
+use App\Http\Resources\Leave\LeaveTypeResource;
 use App\Models\Employee;
 use App\Models\LeaveType;
 use App\Services\Leave\LeaveCreator;
@@ -69,11 +70,12 @@ class LeaveController extends Controller
     public function getLeaveByEmployeeId(LeaveGetter $leaveGetter)
     {
         $id = Auth::user()->employee_id;
-        return  $leaveGetter->getLeaveByEmployeeId($id);
+        return  LeaveResource::collection($leaveGetter->getLeaveByEmployeeId($id));
     }
 
     public function getLeaveType()
     {
-        return  LeaveType::all();
+        $leaveType =  LeaveType::all();
+        return LeaveTypeResource::collection($leaveType);
     }
 }
