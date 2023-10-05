@@ -15,7 +15,8 @@ class Leave extends Model
         'end_date',
         'shift',
         'employee_id',
-        'leaveType_id'
+        'leaveType_id',
+        'status'
     ];
 
     public function employee()
