@@ -16,7 +16,10 @@ class Leave extends Model
         'shift',
         'employee_id',
         'leaveType_id',
+<<<<<<< Updated upstream
         'status'
+=======
+>>>>>>> Stashed changes
     ];
 
     public function employee()
@@ -26,6 +29,10 @@ class Leave extends Model
 
     public function leaveType()
     {
+<<<<<<< Updated upstream
         return $this->belongsTo(LeaveType::class, 'leaveType_id', 'id');
+=======
+        return $this->belongsTo(LeaveType::class, 'leaveType_id');
+>>>>>>> Stashed changes
     }
 }

@@ -54,6 +54,7 @@ class LeaveController extends Controller
         return  $leaveCreator->store($data);
     }
 
+<<<<<<< Updated upstream
     public function EmployeeLeaveApply(Request $request, LeaveCreator $leaveCreator)
     {
         $data = $request->all();
@@ -78,4 +79,16 @@ class LeaveController extends Controller
         $leaveType =  LeaveType::all();
         return LeaveTypeResource::collection($leaveType);
     }
+=======
+    public function getEmployee(Request $request, LeaveGetter $leaveGetter, $id){
+        $leave = $leaveGetter->show($id);
+        return $leave->employee;
+    }
+
+    public function getLeaveType(Request $request, LeaveGetter $leaveGetter, $id){
+        $leave = $leaveGetter->show($id);
+        return $leave->leaveType;
+    }
+
+>>>>>>> Stashed changes
 }

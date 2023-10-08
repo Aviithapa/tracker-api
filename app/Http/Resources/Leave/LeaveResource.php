@@ -23,6 +23,7 @@ class LeaveResource extends JsonResource
             'status' => $this->status,
             'leaveType' => $this->leaveType,
             'no_of_days' => $this->no_of_days,
+            'status' => $this->status,
         ];
     }
 }

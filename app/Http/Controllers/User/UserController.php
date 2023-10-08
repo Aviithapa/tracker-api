@@ -36,7 +36,7 @@ class UserController extends Controller
     public function store(UserCreateRequest $request, UserCreator $userCreator, EmployeeCreator $employeeCreator): JsonResponse
     {
         $data = $request->all();
-        dd($data);
+        // dd($data);
         $existingUser = $this->userRepository->findByFirst('email', $data['email'], '=');
         if ($existingUser) {
             return response()->json(['error' => 'Duplicate Entry'], 500);
@@ -48,7 +48,6 @@ class UserController extends Controller
         $data['remember_token'] = $data['password'];
         $data['userId'] = str_pad(rand(1, 99999999), 8, '0', STR_PAD_LEFT);
 
-        dd($data);
         $employee = $employeeCreator->store($data);
         if ($employee === false) {
             return response()->json(['error' => 'Internal Error'], 500);
@@ -91,6 +90,7 @@ class UserController extends Controller
             $user = $userCreator->store($data);
 
             DB::commit();
+
 
             return $this->successResponse(
                 UserResource::make($user),

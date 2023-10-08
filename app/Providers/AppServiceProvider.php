@@ -27,6 +27,8 @@ use App\Repositories\Setting\EloquentSettingRepository;
 use App\Repositories\Setting\SettingRepository;
 use App\Repositories\User\EloquentUserRepository;
 use App\Repositories\User\UserRepository;
+use App\Repositories\FiscalYear\EloquentFiscalYearRepository;
+use App\Repositories\FiscalYear\FiscalYearRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -104,5 +106,11 @@ class AppServiceProvider extends ServiceProvider
             HolidayRepository::class,
             EloquentHolidayRepository::class
         );
+
+        $this->app->bind(
+            FiscalYearRepository::class,
+            EloquentFiscalYearRepository::class
+        );
+
     }
 }

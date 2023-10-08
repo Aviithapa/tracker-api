@@ -8,6 +8,7 @@ use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Holiday\HolidayController;
 use App\Http\Controllers\Leave\LeaveController;
 use App\Http\Controllers\Office\OfficeController;
+use App\Http\Controllers\FiscalYear\FiscalYearController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\User\UserController;
 /*
@@ -20,6 +21,11 @@ use App\Http\Controllers\User\UserController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// for testing
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+
+// end testing
 
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -44,12 +50,18 @@ Route::middleware(['auth:api'])->group(
         Route::apiResource('/office', OfficeController::class);
         Route::apiResource('/leave', LeaveController::class);
         Route::apiResource('/holiday', HolidayController::class);
+        Route::apiResource('/fiscal-year', FiscalYearController::class);
         Route::get('/attendance', [AttendanceController::class, 'getEmployeeAttendance'])->name('attendance');
         Route::post('/attendance/new', [AttendanceController::class, 'newAttendanceByAdmin'])->name('newAttendanceByAdmin');
         Route::patch('/attendance', [AttendanceController::class, 'deleteEmployeeAttendanceForDate'])->name('deleteEmployeeAttendanceForDate');
         Route::post('/area/import', [AreaController::class, 'importArea'])->name('area.importArea');
         Route::put('/assign/role/{role}/{user_id}', [UserController::class, 'assignRole'])->name('user.assign.role');
         Route::post('/user/create', [UserController::class, 'create'])->name('users.create');
+
+        // for testing only
+        Route::post('/leave/create', [LeaveController::class, 'store'])->name('leave.create');
+        Route::get('/leave/get/employee/{id}', [LeaveController::class, 'getEmployee'])->name('leave.employee');
+        Route::get('/leave/get/leave-type/{id}', [LeaveController::class, 'getLeaveType'])->name('leave.leaveType');
     }
 );
 
