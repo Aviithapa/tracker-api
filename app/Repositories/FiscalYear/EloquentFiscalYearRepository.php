@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Repositories\Leave;
+namespace App\Repositories\FiscalYear;
 
-use App\Models\Leave;
+use App\Models\FiscalYear;
 use App\Repositories\RepositoryImplementation;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class EloquentLeaveRepository extends RepositoryImplementation implements LeaveRepository
+class EloquentFiscalYearRepository extends RepositoryImplementation implements FiscalYearRepository
 {
 
     public function getModel()
     {
-        return new Leave();
+        return new FiscalYear();
     }
 
     public function getPaginatedList(Request $request, array $columns = array('*')): LengthAwarePaginator
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->getModel()->newQuery()
-            ->filter(new LeaveFilter($request))
             ->latest()
             ->paginate($limit);
     }

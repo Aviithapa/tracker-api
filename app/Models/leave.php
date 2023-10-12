@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use App\Infrastructure\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Leave extends Model
 {
+
+    use HasFactory;
+    use HasFilter;
+
     protected $table = 'leave';
     protected $fillable = [
         'reason',
@@ -21,7 +27,7 @@ class Leave extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
     public function leaveType()

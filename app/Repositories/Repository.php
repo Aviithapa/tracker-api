@@ -11,6 +11,8 @@ namespace App\Repositories;
 
 interface Repository
 {
+
+
     /**
      * Get count of row being shown perpage.
      *

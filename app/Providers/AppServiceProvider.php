@@ -12,6 +12,8 @@ use App\Repositories\AttendanceDetailData\AttendanceDetailDataRepository;
 use App\Repositories\AttendanceDetailData\EloquentAttendanceDetailDataRepository;
 use App\Repositories\Employee\EloquentEmployeeRepository;
 use App\Repositories\Employee\EmployeeRepository;
+use App\Repositories\FiscalYear\EloquentFiscalYearRepository;
+use App\Repositories\FiscalYear\FiscalYearRepository;
 use App\Repositories\Holiday\HolidayRepository;
 use App\Repositories\Imei\EloquentImeiRepository;
 use App\Repositories\Imei\ImeiRepository;
@@ -103,6 +105,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             HolidayRepository::class,
             EloquentHolidayRepository::class
+        );
+
+        $this->app->bind(
+            FiscalYearRepository::class,
+            EloquentFiscalYearRepository::class
         );
     }
 }

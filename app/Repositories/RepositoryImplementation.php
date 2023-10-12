@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -13,6 +14,7 @@ abstract class RepositoryImplementation
     protected $entity_name = "";
 
     protected $log;
+
 
     public function __construct(Log $log)
     {

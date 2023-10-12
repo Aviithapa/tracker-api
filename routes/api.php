@@ -21,6 +21,13 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
+Route::get('/', function () {
+    return response()->json([
+        'name' => 'HrMaps',
+        'version' => '1.0'
+    ]);
+});
+
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/user/login', [AuthController::class, 'generateToken'])->name('user.login');

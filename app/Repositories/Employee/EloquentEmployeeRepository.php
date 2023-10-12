@@ -19,6 +19,7 @@ class EloquentEmployeeRepository extends RepositoryImplementation implements Emp
     {
         $limit = $request->get('limit', config('app.per_page'));
         return $this->getModel()->newQuery()
+            ->filter(new EmployeeFilter($request))
             ->latest()
             ->paginate($limit);
     }

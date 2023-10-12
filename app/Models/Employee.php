@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Infrastructure\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    use HasFactory;
+    use HasFilter;
+
     protected $table = 'employee';
     protected $fillable = [
         'name',
