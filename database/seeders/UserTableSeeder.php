@@ -25,18 +25,21 @@ class UserTableSeeder extends Seeder
                 'status' => true,
                 'email_verified_at' => Carbon::now(),
                 'phone_number' => '+977-01-5261884',
-                'position' => 'Super Admin',
-                'reference' => 'Nepal@123',
+                'employee_id' => '3',
+                // 'position' => 'Super Admin',
+                // 'reference' => 'Nepal@123',
             ],
             [
                 'name' => 'Admin User',
                 'email' => 'admin@aeirc.tech',
+                'userId' => 'admin',
                 'password' => Hash::make('Nepal@123'),
                 'status' => true,
                 'email_verified_at' => Carbon::now(),
                 'phone_number' => '+977-01-5261884',
-                'position' => 'Admin',
-                'reference' => 'Nepal@123'
+                'employee_id' => '4',
+                // 'position' => 'Admin',
+                // 'reference' => 'Nepal@123'
             ],
         ]);
 

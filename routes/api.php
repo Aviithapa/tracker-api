@@ -39,6 +39,7 @@ Route::middleware(['jwt.user.verify'])->group(
         Route::get('/employee/leave', [LeaveController::class, 'getLeaveByEmployeeId'])->name('employee.leave.index');
         Route::get('/leave/type', [LeaveController::class, 'getLeaveType'])->name('employee.leave.type');
         Route::post('/employee/apply/leave', [LeaveController::class, 'EmployeeLeaveApply'])->name('employee.leave.apply');
+        Route::get('/employee/attendance/details', [AttendanceController::class, 'OfficeList'])->name('office.attandance.list');
     }
 );
 
