@@ -18,6 +18,7 @@ class AttendanceController extends Controller
     public function checkInCheckOut(Request $request, CheckInCheckOutService $checkInCheckOutService)
     {
         $data = $request->all();
+        // return $this->errorResponse('Unauthorized username or password doesnot match', 401);
         return $checkInCheckOutService->evaluateCheckInCheckOut($data);
     }
 
@@ -53,5 +54,10 @@ class AttendanceController extends Controller
     {
         $data = $request->all();
         return $getAttendance->getActivityLog($data);
+    }
+
+    public function OfficeList(Request $request, GetAttendance $getAttendance){
+        $data = $request->all();
+        return $getAttendance->getOfficeAttendance($data);
     }
 }

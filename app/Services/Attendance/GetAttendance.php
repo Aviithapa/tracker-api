@@ -50,4 +50,71 @@ class GetAttendance
 
         return response()->json($response);
     }
+
+    public function getOfficeAttendance($data){
+        $details = $this->muncipalityDetail();
+        $main = $this->municipalityOverview();
+        
+        $toReturn = [
+            'main' => $main,
+            'details' => $details
+        ];
+
+        return $toReturn;
+    }
+
+    public function municipalityOverview(){
+        $offices = DB::table('offices')->get();
+        $today = Carbon::today()->toDateString();
+        $attendance = DB::table('attendance')
+                            ->where('check_in',$today)
+                            ->get()->count();
+        $leave = DB::table('leave')
+                        ->whereDate('start_date','<=', $today)
+                        ->whereDate('end_date','>=', $today)
+                        ->get()->count();
+        $employeeCount = DB::table('employee')->whereNull('termination_date')->get()->count();
+        $main = [
+            'totalOffice' => $offices->count(),
+            'totalEmployee' => $employeeCount,
+            'totalAttendance' => $attendance,
+            'totalLeave' => $leave
+        ];
+
+        return $main;
+    }
+
+    public function muncipalityDetail(){
+
+        $offices = DB::table('offices as off')
+                            ->select('off.id','e.id as employee_id','off.ward_id','wards.name')
+                            ->leftJoin('wards','wards.id','off.ward_id')
+                            ->join('employee as e','e.office_id','off.id')
+                            ->whereNull('e.termination_date')
+                            ->whereNotNull('ward_id')
+                            ->get()->groupBy('ward_id');
+        $data = [];
+
+        foreach($offices as $key => $office){
+            $employeeIds = $office->pluck('employee_id')->toArray();
+            $totalEmployee = count($employeeIds);
+            $today = Carbon::today()->toDateString();
+            $attendance = DB::table('attendance')
+                                ->whereIn('employee_id',$employeeIds)
+                                ->where('check_in',$today)
+                                ->get()->count();
+
+            $leave = DB::table('leave')
+                        ->whereDate('start_date','<=', $today)
+                        ->whereDate('end_date','>=', $today)
+                        ->get()->count();
+
+            $data[$key]['ward'] = $office[0]->name;
+            $data[$key]['attendance'] = $attendance;
+            $data[$key]['employees'] = $totalEmployee;
+            $data[$key]['leave'] = $leave;
+            
+        }
+        return array_values($data);
+    }
 }
