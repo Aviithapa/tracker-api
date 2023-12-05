@@ -194,21 +194,22 @@ class CheckInCheckOutService
         $offset = $data['offset'];
         $month = $data['month'];
         $year = $data['year'];
+        $search = isset($data['search']) ? $data['search'] : '';
         $sortBy = $data['sortBy'];
         $order = $data['order'];
-
-        $sortingColumns = [
-            'NAME' => 'employeeAttendance.name',
-            'DATE' => 'attendance.check_in',
-            'DESIGNATION' => 'designation.name',
-        ];
 
         $paginationParams = $this->pagination($page, $limit);
 
         $employees = Employee::with(['attendances' => function ($query) use ($month, $year) {
             $query->whereMonth('check_in', $month)
                 ->whereYear('check_in', $year);
-        }])->paginate($limit);
+        }]);
+
+        if (!empty($search)) {
+            $employees->where('employee.name', 'LIKE', '%' . $search . '%');
+        }
+        // Get the paginated results
+        $employees = $employees->paginate($limit);
 
         $employees->appends(['month' => $month, 'year' => $year]);
 
@@ -238,14 +239,6 @@ class CheckInCheckOutService
                     'check_out' => $attendance->check_out,
                 ];
             }
-
-            // foreach ($employee->leaves as $leave) {
-            //     $attendanceData['leaves'][] = [
-            //         'start_date' => $leave->start_date,
-            //         'end_date' => $leave->end_date,
-            //         'reason' => $leave->reason
-            //     ];
-            // }
 
             $result['data']['employees'][] = $attendanceData;
         }

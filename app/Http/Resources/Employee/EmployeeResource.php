@@ -30,6 +30,7 @@ class EmployeeResource extends JsonResource
             'termination_date' => $this->termination_date,
             'citizenship_number' => $this->citizenship_number,
             'profile_picture' => $this->profile_picture,
+            'user' => $this->user
         ];
     }
 }

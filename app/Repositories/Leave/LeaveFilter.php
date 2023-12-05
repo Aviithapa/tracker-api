@@ -11,7 +11,7 @@ class LeaveFilter extends BaseFilter
      *
      * @var array
      */
-    protected $filters = ['status', 'employee_id', 'leaveType_id', 'start_date', 'end_date'];
+    protected $filters = ['status', 'employee_id', 'leaveType_id', 'start_date', 'end_date', 'search'];
 
 
     /**
@@ -31,10 +31,13 @@ class LeaveFilter extends BaseFilter
      *
      * @return void
      */
-    public function employeeId()
+    public function search()
     {
-        if ($this->request->has('employee_id')) {
-            $this->builder->where('employee_id', 'LIKE', '%' . $this->request->get('employee_id') . '%');
+        $searchTerm = $this->request->get('search');
+        if ($this->request->has('search')) {
+            $this->builder->whereHas('employee', function ($query) use ($searchTerm) {
+                $query->where('name', 'LIKE', '%' . $searchTerm . '%');
+            });
         }
     }
 

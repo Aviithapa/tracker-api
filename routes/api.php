@@ -37,9 +37,9 @@ Route::middleware(['jwt.user.verify'])->group(
         Route::post('/user/attendance', [AttendanceController::class, 'checkInCheckOut'])->name('user.attendance');
         Route::get('/user/attendance/logs', [AttendanceController::class, 'getAttendanceLog'])->name('user.attendance.logs');
         Route::get('/employee/leave', [LeaveController::class, 'getLeaveByEmployeeId'])->name('employee.leave.index');
-        Route::get('/leave/type', [LeaveController::class, 'getLeaveType'])->name('employee.leave.type');
         Route::post('/employee/apply/leave', [LeaveController::class, 'EmployeeLeaveApply'])->name('employee.leave.apply');
         Route::get('/employee/attendance/details', [AttendanceController::class, 'OfficeList'])->name('office.attandance.list');
+        Route::get('/my-details', [EmployeeController::class, 'myDetails']);
     }
 );
 
@@ -61,4 +61,10 @@ Route::middleware(['auth:api'])->group(
     }
 );
 
+Route::middleware(['jwt.user.verify', 'auth:api'])->group(
+    function () {
+        Route::get('/leaves/type', [LeaveController::class, 'getLeaveType'])->name('employee.leave.type');
+        Route::match(['post', 'get'], '/logout', [AuthController::class, 'logout'])->name('logout');
+    }
+);
 Route::post('/user/getAttendanceLogOfUser', [AttendanceController::class, 'getAttendanceLogOfUser'])->name('user.getAttendanceLogOfUser');

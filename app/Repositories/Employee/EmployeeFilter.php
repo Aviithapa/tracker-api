@@ -11,7 +11,7 @@ class EmployeeFilter extends BaseFilter
      *
      * @var array
      */
-    protected $filters = ['name', 'email', 'phone_number', 'date_of_birth'];
+    protected $filters = ['search', 'email', 'phone_number', 'date_of_birth'];
 
 
     /**
@@ -19,10 +19,10 @@ class EmployeeFilter extends BaseFilter
      *
      * @return void
      */
-    public function name()
+    public function search()
     {
-        if ($this->request->has('name')) {
-            $this->builder->where('name', 'LIKE', '%' . $this->request->get('name') . '%');
+        if ($this->request->has('search')) {
+            $this->builder->where('name', 'LIKE', '%' . $this->request->get('search') . '%');
         }
     }
 

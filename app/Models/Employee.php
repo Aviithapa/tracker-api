@@ -29,6 +29,10 @@ class Employee extends Model
         'office_id'
     ];
 
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
     public function office()
     {
         return $this->belongsTo(Offices::class);
@@ -36,7 +40,7 @@ class Employee extends Model
 
     public function attendances()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(Attendance::class, 'employee_id');
     }
 
     public function leaves()

@@ -3,12 +3,11 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UserTableSeeder extends Seeder
+class EmployeeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +15,11 @@ class UserTableSeeder extends Seeder
     public function run(): void
     {
         //
+        //
         $userId = DB::table('users')->insertGetId([
-            'name' => 'Admin User',
-            'userId' => 'admin_user',
-            'email' => 'admin@aeirc.tech',
+            'name' => 'Employee User',
+            'userId' => 'employee_user',
+            'email' => 'employee@aeirc.tech',
             'password' => Hash::make('Nepal@123'),
             'status' => true,
             'email_verified_at' => Carbon::now(),
@@ -31,7 +31,7 @@ class UserTableSeeder extends Seeder
 
         // Insert roles for the user
         DB::table('role_user')->insert([
-            ['role_id' => 2, 'user_id' => $userId], // Assuming role_id 1 is for the admin role
+            ['role_id' => 1, 'user_id' => $userId], // Assuming role_id 1 is for the admin role
         ]);
     }
 }

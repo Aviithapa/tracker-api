@@ -14,10 +14,17 @@ use App\Services\User\UserUpdater;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
     use ApiResponser;
+
+    private $employeeGetter;
+    public function __construct(EmployeeGetter $employeeGetter)
+    {
+        $this->employeeGetter = $employeeGetter;
+    }
 
     public function index(Request  $request, EmployeeGetter $employeeGetter)
     {
@@ -43,5 +50,11 @@ class EmployeeController extends Controller
             __('User updated successfully'),
             Response::HTTP_CREATED
         );
+    }
+
+    public function myDetails()
+    {
+        $id = Auth::user()->employee_id;
+        return $this->employeeGetter->show($id);
     }
 }
