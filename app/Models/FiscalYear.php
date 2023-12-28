@@ -11,10 +11,10 @@ class FiscalYear extends Model
     protected $table = 'fiscal_year';
     protected $fillable = [
         'name',
-        'start_date_english',
-        'end_date_english',
-        'start_date_nepali',
-        'end_date_nepali',
+        'start_year_english',
+        'end_year_english',
+        'start_year_nepali',
+        'end_year_nepali',
         'status',
     ];
 }

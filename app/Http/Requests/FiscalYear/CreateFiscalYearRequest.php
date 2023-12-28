@@ -11,7 +11,7 @@ class CreateFiscalYearRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,10 +23,10 @@ class CreateFiscalYearRequest extends FormRequest
     {
         return [
             'name' => ['string', 'max:255'],
-            'start_year_english' => ['string', 'max:255'],
+            'start_year_english' => ['required', 'string', 'max:255'],
             'end_year_english' => ['required', 'string', 'max:255'],
-            'start_date_nepali' => ['required', 'string', 'max:255'],
-            'end_date_nepali' => ['required', 'string', 'max:255'],
+            'start_year_nepali' => ['required', 'string', 'max:255'],
+            'end_year_nepali' => ['required', 'string', 'max:255'],
 
         ];
     }

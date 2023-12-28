@@ -30,6 +30,7 @@ class FiscalYearCreator
 
         $employee = $this->fiscalYearRepository->create($data);
         if ($employee === false) {
+            return $employee;
             return response()->json(['error' => 'Internal Error'], 500);
         }
         return $employee;

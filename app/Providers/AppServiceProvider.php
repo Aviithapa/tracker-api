@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Role;
 use App\Repositories\Area\AreaRepository;
 use App\Repositories\Area\EloquentAreaRepository;
 use App\Repositories\Holiday\EloquentHolidayRepository;
@@ -10,6 +9,8 @@ use App\Repositories\Attendance\AttendanceRepository;
 use App\Repositories\Attendance\EloquentAttendanceRepository;
 use App\Repositories\AttendanceDetailData\AttendanceDetailDataRepository;
 use App\Repositories\AttendanceDetailData\EloquentAttendanceDetailDataRepository;
+use App\Repositories\Designation\DesignationRepository;
+use App\Repositories\Designation\EloquentDesignationRepository;
 use App\Repositories\Employee\EloquentEmployeeRepository;
 use App\Repositories\Employee\EmployeeRepository;
 use App\Repositories\FiscalYear\EloquentFiscalYearRepository;
@@ -19,6 +20,8 @@ use App\Repositories\Imei\EloquentImeiRepository;
 use App\Repositories\Imei\ImeiRepository;
 use App\Repositories\Leave\EloquentLeaveRepository;
 use App\Repositories\Leave\LeaveRepository;
+use App\Repositories\LeaveType\EloquentLeaveTypeRepository;
+use App\Repositories\LeaveType\LeaveTypeRepository;
 use App\Repositories\Media\EloquentMediaRepository;
 use App\Repositories\Media\MediaRepository;
 use App\Repositories\Office\EloquentOfficeRepository;
@@ -110,6 +113,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             FiscalYearRepository::class,
             EloquentFiscalYearRepository::class
+        );
+
+        $this->app->bind(
+            LeaveTypeRepository::class,
+            EloquentLeaveTypeRepository::class
+        );
+
+        $this->app->bind(
+            DesignationRepository::class,
+            EloquentDesignationRepository::class
         );
     }
 }

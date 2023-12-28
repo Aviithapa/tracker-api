@@ -17,6 +17,8 @@ class LeaveTypeResource extends JsonResource
         return [
             'id'  => $this->id,
             'name' => $this->name,
+            'alloted_days' => $this->alloted_days,
+            'fiscal_year' => $this->fiscalYear,
         ];
     }
 }
